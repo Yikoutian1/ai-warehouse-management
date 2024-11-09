@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calyee.web.aiwarehouse.mapper.TransactionsMapper">
+
+    <resultMap type="Transactions" id="TransactionsResult">
+        <result property="transactionId" column="transaction_id"/>
+        <result property="inventoryId" column="inventory_id"/>
+        <result property="transactionType" column="transaction_type"/>
+        <result property="quantity" column="quantity"/>
+        <result property="transactionTime" column="transaction_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+    </resultMap>
+
+    <sql id="selectTransactionsVo">
+        select transaction_id,
+               inventory_id,
+               transaction_type,
+               quantity,
+               transaction_time,
+               create_user,
+               create_time,
+               delete_flag
+        from awm_transactions
+    </sql>
+
+    <select id="selectTransactionsList" parameterType="Transactions" resultMap="TransactionsResult">
+        <include refid="selectTransactionsVo"/>
+        <where>
+            <if test="inventoryId != null ">and inventory_id = #{inventoryId}</if>
+            <if test="transactionType != null  and transactionType != ''">and transaction_type = #{transactionType}</if>
+            <if test="quantity != null ">and quantity = #{quantity}</if>
+            <if test="transactionTime != null ">and transaction_time = #{transactionTime}</if>
+            <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
+            <if test="deleteFlag != null ">and delete_flag = #{deleteFlag}</if>
+        </where>
+    </select>
+
+    <select id="selectTransactionsByTransactionId" parameterType="Long" resultMap="TransactionsResult">
+        <include refid="selectTransactionsVo"/>
+        where transaction_id = #{transactionId}
+    </select>
+
+    <insert id="insertTransactions" parameterType="Transactions" useGeneratedKeys="true" keyProperty="transactionId">
+        insert into awm_transactions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="inventoryId != null">inventory_id,</if>
+            <if test="transactionType != null and transactionType != ''">transaction_type,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="transactionTime != null">transaction_time,</if>
+            <if test="createUser != null and createUser != ''">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="deleteFlag != null">delete_flag,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="inventoryId != null">#{inventoryId},</if>
+            <if test="transactionType != null and transactionType != ''">#{transactionType},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="transactionTime != null">#{transactionTime},</if>
+            <if test="createUser != null and createUser != ''">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTransactions" parameterType="Transactions">
+        update awm_transactions
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inventoryId != null">inventory_id = #{inventoryId},</if>
+            <if test="transactionType != null and transactionType != ''">transaction_type = #{transactionType},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="transactionTime != null">transaction_time = #{transactionTime},</if>
+            <if test="createUser != null and createUser != ''">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="deleteFlag != null">delete_flag = #{deleteFlag},</if>
+        </trim>
+        where transaction_id = #{transactionId}
+    </update>
+
+    <delete id="deleteTransactionsByTransactionId" parameterType="Long">
+        delete
+        from awm_transactions
+        where transaction_id = #{transactionId}
+    </delete>
+
+    <delete id="deleteTransactionsByTransactionIds" parameterType="String">
+        delete from awm_transactions where transaction_id in
+        <foreach item="transactionId" collection="array" open="(" separator="," close=")">
+            #{transactionId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.calyee.web.aiwarehouse.mapper.ProductsMapper">
+    
+    <resultMap type="Products" id="ProductsResult">
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="description"    column="description"    />
+        <result property="sku"    column="sku"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateUser"    column="update_user"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="deleteFlag"    column="delete_flag"    />
+    </resultMap>
+
+    <sql id="selectProductsVo">
+        select product_id, product_name, description, sku, category_id, create_user, create_time, update_user, update_time, delete_flag from awm_products
+    </sql>
+
+    <select id="selectProductsList" parameterType="Products" resultMap="ProductsResult">
+        <include refid="selectProductsVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="updateUser != null  and updateUser != ''"> and update_user = #{updateUser}</if>
+            <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectProductsByProductId" parameterType="Long" resultMap="ProductsResult">
+        <include refid="selectProductsVo"/>
+        where product_id = #{productId}
+    </select>
+
+    <insert id="insertProducts" parameterType="Products" useGeneratedKeys="true" keyProperty="productId">
+        insert into awm_products
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="description != null">description,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="createUser != null and createUser != ''">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleteFlag != null">delete_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="description != null">#{description},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="createUser != null and createUser != ''">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProducts" parameterType="Products">
+        update awm_products
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="createUser != null and createUser != ''">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="deleteFlag != null">delete_flag = #{deleteFlag},</if>
+        </trim>
+        where product_id = #{productId}
+    </update>
+
+    <delete id="deleteProductsByProductId" parameterType="Long">
+        delete from awm_products where product_id = #{productId}
+    </delete>
+
+    <delete id="deleteProductsByProductIds" parameterType="String">
+        delete from awm_products where product_id in 
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+</mapper>

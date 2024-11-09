@@ -1,44 +1,45 @@
 package com.calyee.web.core.config;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.calyee.common.config.RuoYiConfig;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.calyee.common.config.RuoYiConfig;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Swagger2的接口配置
- * 
- * @author ruoyi
+ *
+ * @author calyee
  */
 @Configuration
-public class SwaggerConfig
-{
-    /** 系统基础配置 */
+public class SwaggerConfig {
+    /**
+     * 系统基础配置
+     */
     @Autowired
     private RuoYiConfig ruoyiConfig;
 
-    /** 是否开启swagger */
+    /**
+     * 是否开启swagger
+     */
     @Value("${swagger.enabled}")
     private boolean enabled;
 
-    /** 设置请求的统一前缀 */
+    /**
+     * 设置请求的统一前缀
+     */
     @Value("${swagger.pathMapping}")
     private String pathMapping;
 
@@ -46,8 +47,7 @@ public class SwaggerConfig
      * 创建API
      */
     @Bean
-    public Docket createRestApi()
-    {
+    public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
                 // 是否启用Swagger
                 .enable(enabled)
@@ -71,8 +71,7 @@ public class SwaggerConfig
     /**
      * 安全模式，这里指定token通过Authorization头请求头传递
      */
-    private List<SecurityScheme> securitySchemes()
-    {
+    private List<SecurityScheme> securitySchemes() {
         List<SecurityScheme> apiKeyList = new ArrayList<SecurityScheme>();
         apiKeyList.add(new ApiKey("Authorization", "Authorization", In.HEADER.toValue()));
         return apiKeyList;
@@ -81,8 +80,7 @@ public class SwaggerConfig
     /**
      * 安全上下文
      */
-    private List<SecurityContext> securityContexts()
-    {
+    private List<SecurityContext> securityContexts() {
         List<SecurityContext> securityContexts = new ArrayList<>();
         securityContexts.add(
                 SecurityContext.builder()
@@ -95,8 +93,7 @@ public class SwaggerConfig
     /**
      * 默认的安全上引用
      */
-    private List<SecurityReference> defaultAuth()
-    {
+    private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
@@ -108,12 +105,11 @@ public class SwaggerConfig
     /**
      * 添加摘要信息
      */
-    private ApiInfo apiInfo()
-    {
+    private ApiInfo apiInfo() {
         // 用ApiInfoBuilder进行定制
         return new ApiInfoBuilder()
                 // 设置标题
-                .title("标题：若依管理系统_接口文档")
+                .title("标题：智慧仓储管理系统_接口文档")
                 // 描述
                 .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
                 // 作者信息
