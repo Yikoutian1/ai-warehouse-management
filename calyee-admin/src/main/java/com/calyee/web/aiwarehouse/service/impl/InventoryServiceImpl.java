@@ -1,10 +1,10 @@
 package com.calyee.web.aiwarehouse.service.impl;
 
 import com.calyee.common.utils.DateUtils;
-import com.calyee.web.aiwarehouse.domain.Inventory;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import com.calyee.web.aiwarehouse.mapper.InventoryMapper;
 import com.calyee.web.aiwarehouse.service.IInventoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +16,9 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Service
+@AllArgsConstructor
 public class InventoryServiceImpl implements IInventoryService {
-    @Autowired
+
     private InventoryMapper inventoryMapper;
 
     /**

@@ -1,6 +1,7 @@
 package com.calyee.web.aiwarehouse.mapper;
 
-import com.calyee.web.aiwarehouse.domain.Inventory;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author CALYEE
  * @date 2024-11-09
  */
+@Mapper
 public interface InventoryMapper {
     /**
      * 查询库存，记录库存量及位置信息
@@ -17,7 +19,7 @@ public interface InventoryMapper {
      * @param inventoryId 库存，记录库存量及位置信息主键
      * @return 库存，记录库存量及位置信息
      */
-    public Inventory selectInventoryByInventoryId(Long inventoryId);
+    Inventory selectInventoryByInventoryId(Long inventoryId);
 
     /**
      * 查询库存，记录库存量及位置信息列表
@@ -25,7 +27,7 @@ public interface InventoryMapper {
      * @param inventory 库存，记录库存量及位置信息
      * @return 库存，记录库存量及位置信息集合
      */
-    public List<Inventory> selectInventoryList(Inventory inventory);
+    List<Inventory> selectInventoryList(Inventory inventory);
 
     /**
      * 新增库存，记录库存量及位置信息
@@ -33,7 +35,7 @@ public interface InventoryMapper {
      * @param inventory 库存，记录库存量及位置信息
      * @return 结果
      */
-    public int insertInventory(Inventory inventory);
+    int insertInventory(Inventory inventory);
 
     /**
      * 修改库存，记录库存量及位置信息
@@ -41,7 +43,7 @@ public interface InventoryMapper {
      * @param inventory 库存，记录库存量及位置信息
      * @return 结果
      */
-    public int updateInventory(Inventory inventory);
+    int updateInventory(Inventory inventory);
 
     /**
      * 删除库存，记录库存量及位置信息
@@ -49,7 +51,7 @@ public interface InventoryMapper {
      * @param inventoryId 库存，记录库存量及位置信息主键
      * @return 结果
      */
-    public int deleteInventoryByInventoryId(Long inventoryId);
+    int deleteInventoryByInventoryId(Long inventoryId);
 
     /**
      * 批量删除库存，记录库存量及位置信息
@@ -57,5 +59,5 @@ public interface InventoryMapper {
      * @param inventoryIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteInventoryByInventoryIds(Long[] inventoryIds);
+    int deleteInventoryByInventoryIds(Long[] inventoryIds);
 }

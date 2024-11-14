@@ -1,10 +1,10 @@
 package com.calyee.web.aiwarehouse.service.impl;
 
 import com.calyee.common.utils.DateUtils;
-import com.calyee.web.aiwarehouse.domain.Transactions;
+import com.calyee.web.aiwarehouse.domain.entity.Transactions;
 import com.calyee.web.aiwarehouse.mapper.TransactionsMapper;
 import com.calyee.web.aiwarehouse.service.ITransactionsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +16,9 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Service
+@AllArgsConstructor
 public class TransactionsServiceImpl implements ITransactionsService {
-    @Autowired
+
     private TransactionsMapper transactionsMapper;
 
     /**

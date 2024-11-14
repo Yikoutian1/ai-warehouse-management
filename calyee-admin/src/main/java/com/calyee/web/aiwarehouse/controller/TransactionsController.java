@@ -6,10 +6,9 @@ import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
 import com.calyee.common.utils.poi.ExcelUtil;
-import com.calyee.web.aiwarehouse.domain.Transactions;
+import com.calyee.web.aiwarehouse.domain.entity.Transactions;
 import com.calyee.web.aiwarehouse.service.ITransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,6 @@ public class TransactionsController extends BaseController {
     /**
      * 查询出入库记录，记录每次库存变动列表
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:list')")
     @GetMapping("/list")
     public TableDataInfo list(Transactions transactions) {
         startPage();
@@ -41,7 +39,6 @@ public class TransactionsController extends BaseController {
     /**
      * 导出出入库记录，记录每次库存变动列表
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:export')")
     @Log(title = "出入库记录，记录每次库存变动", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Transactions transactions) {
@@ -53,7 +50,6 @@ public class TransactionsController extends BaseController {
     /**
      * 获取出入库记录，记录每次库存变动详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:query')")
     @GetMapping(value = "/{transactionId}")
     public AjaxResult getInfo(@PathVariable("transactionId") Long transactionId) {
         return success(transactionsService.selectTransactionsByTransactionId(transactionId));
@@ -62,7 +58,6 @@ public class TransactionsController extends BaseController {
     /**
      * 新增出入库记录，记录每次库存变动
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:add')")
     @Log(title = "出入库记录，记录每次库存变动", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Transactions transactions) {
@@ -72,7 +67,6 @@ public class TransactionsController extends BaseController {
     /**
      * 修改出入库记录，记录每次库存变动
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:edit')")
     @Log(title = "出入库记录，记录每次库存变动", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Transactions transactions) {
@@ -82,7 +76,6 @@ public class TransactionsController extends BaseController {
     /**
      * 删除出入库记录，记录每次库存变动
      */
-    @PreAuthorize("@ss.hasPermi('system:transactions:remove')")
     @Log(title = "出入库记录，记录每次库存变动", businessType = BusinessType.DELETE)
     @DeleteMapping("/{transactionIds}")
     public AjaxResult remove(@PathVariable Long[] transactionIds) {

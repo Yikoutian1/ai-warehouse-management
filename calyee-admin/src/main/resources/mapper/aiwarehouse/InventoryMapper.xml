@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateUser != null">update_user,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="deleteFlag != null">delete_flag,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="locationId != null">#{locationId},</if>
             <if test="productId != null">#{productId},</if>
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateUser != null">#{updateUser},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="deleteFlag != null">#{deleteFlag},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateInventory" parameterType="Inventory">

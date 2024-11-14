@@ -1,10 +1,10 @@
 package com.calyee.web.aiwarehouse.service.impl;
 
 import com.calyee.common.utils.DateUtils;
-import com.calyee.web.aiwarehouse.domain.Products;
+import com.calyee.web.aiwarehouse.domain.entity.Products;
 import com.calyee.web.aiwarehouse.mapper.ProductsMapper;
 import com.calyee.web.aiwarehouse.service.IProductsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +16,8 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Service
+@AllArgsConstructor
 public class ProductsServiceImpl implements IProductsService {
-    @Autowired
     private ProductsMapper productsMapper;
 
     /**

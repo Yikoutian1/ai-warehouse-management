@@ -6,10 +6,9 @@ import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
 import com.calyee.common.utils.poi.ExcelUtil;
-import com.calyee.web.aiwarehouse.domain.Inventory;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import com.calyee.web.aiwarehouse.service.IInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,6 @@ public class InventoryController extends BaseController {
     /**
      * 查询库存，记录库存量及位置信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:list')")
     @GetMapping("/list")
     public TableDataInfo list(Inventory inventory) {
         startPage();
@@ -41,7 +39,6 @@ public class InventoryController extends BaseController {
     /**
      * 导出库存，记录库存量及位置信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:export')")
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Inventory inventory) {
@@ -53,7 +50,6 @@ public class InventoryController extends BaseController {
     /**
      * 获取库存，记录库存量及位置信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:query')")
     @GetMapping(value = "/{inventoryId}")
     public AjaxResult getInfo(@PathVariable("inventoryId") Long inventoryId) {
         return success(inventoryService.selectInventoryByInventoryId(inventoryId));
@@ -62,7 +58,6 @@ public class InventoryController extends BaseController {
     /**
      * 新增库存，记录库存量及位置信息
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:add')")
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Inventory inventory) {
@@ -72,7 +67,6 @@ public class InventoryController extends BaseController {
     /**
      * 修改库存，记录库存量及位置信息
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:edit')")
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Inventory inventory) {
@@ -82,7 +76,6 @@ public class InventoryController extends BaseController {
     /**
      * 删除库存，记录库存量及位置信息
      */
-    @PreAuthorize("@ss.hasPermi('system:inventory:remove')")
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{inventoryIds}")
     public AjaxResult remove(@PathVariable Long[] inventoryIds) {

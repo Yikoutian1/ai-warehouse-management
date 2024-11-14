@@ -1,11 +1,11 @@
-package com.calyee.web.aiwarehouse.domain;
+package com.calyee.web.aiwarehouse.domain.entity;
 
 import com.calyee.common.annotation.Excel;
 import com.calyee.common.core.domain.BaseEntity;
 import lombok.*;
 
 /**
- * 库存，记录库存量及位置信息对象 awm_inventory
+ * 产品，存储产品信息对象 awm_products
  *
  * @author CALYEE
  * @date 2024-11-09
@@ -15,31 +15,36 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Inventory extends BaseEntity {
-    private static final long serialVersionUID = 1L;
-
+public class Products extends BaseEntity {
+    private static final long serialVersionUID = 7336568948494388308L;
     /**
-     * 库存记录唯一标识符
+     * 产品唯一标识符
      */
-    private Long inventoryId;
-
-    /**
-     * 关联的库位ID（locations.location_id）
-     */
-    @Excel(name = "关联的库位ID（locations.location_id）")
-    private Long locationId;
-
-    /**
-     * 关联的产品ID（products.product_id）
-     */
-    @Excel(name = "关联的产品ID（products.product_id）")
     private Long productId;
 
     /**
-     * 库存数量
+     * 产品名称
      */
-    @Excel(name = "库存数量")
-    private Long quantity;
+    @Excel(name = "产品名称")
+    private String productName;
+
+    /**
+     * 产品描述
+     */
+    @Excel(name = "产品描述")
+    private String description;
+
+    /**
+     * 库存单位eg: DP-992882
+     */
+    @Excel(name = "库存单位eg: DP-992882")
+    private String sku;
+
+    /**
+     * 产品类别ID
+     */
+    @Excel(name = "产品类别ID")
+    private Long categoryId;
 
     /**
      * 记录创建用户

@@ -1,4 +1,4 @@
-package com.calyee.web.aiwarehouse.domain;
+package com.calyee.web.aiwarehouse.domain.entity;
 
 import com.calyee.common.annotation.Excel;
 import com.calyee.common.core.domain.BaseEntity;
@@ -16,8 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Locations extends BaseEntity {
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -761311992173367870L;
     /**
      * 库位唯一标识符
      */

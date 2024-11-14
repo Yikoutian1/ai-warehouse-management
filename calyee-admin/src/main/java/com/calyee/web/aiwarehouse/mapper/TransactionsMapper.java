@@ -1,6 +1,7 @@
 package com.calyee.web.aiwarehouse.mapper;
 
-import com.calyee.web.aiwarehouse.domain.Transactions;
+import com.calyee.web.aiwarehouse.domain.entity.Transactions;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author CALYEE
  * @date 2024-11-09
  */
+@Mapper
 public interface TransactionsMapper {
     /**
      * 查询出入库记录，记录每次库存变动

@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="100px">
       <el-form-item label="产品名称" prop="productName">
         <el-input
           v-model="queryParams.productName"
@@ -21,30 +21,6 @@
         <el-input
           v-model="queryParams.categoryId"
           placeholder="请输入产品类别ID"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="记录创建用户" prop="createUser">
-        <el-input
-          v-model="queryParams.createUser"
-          placeholder="请输入记录创建用户"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="记录更新用户" prop="updateUser">
-        <el-input
-          v-model="queryParams.updateUser"
-          placeholder="请输入记录更新用户"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="删除标记，0表示未删除，1表示已删除" prop="deleteFlag">
-        <el-input
-          v-model="queryParams.deleteFlag"
-          placeholder="请输入删除标记，0表示未删除，1表示已删除"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -110,7 +86,6 @@
       <el-table-column label="产品类别ID" align="center" prop="categoryId" />
       <el-table-column label="记录创建用户" align="center" prop="createUser" />
       <el-table-column label="记录更新用户" align="center" prop="updateUser" />
-      <el-table-column label="删除标记，0表示未删除，1表示已删除" align="center" prop="deleteFlag" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -153,15 +128,6 @@
         </el-form-item>
         <el-form-item label="产品类别ID" prop="categoryId">
           <el-input v-model="form.categoryId" placeholder="请输入产品类别ID" />
-        </el-form-item>
-        <el-form-item label="记录创建用户" prop="createUser">
-          <el-input v-model="form.createUser" placeholder="请输入记录创建用户" />
-        </el-form-item>
-        <el-form-item label="记录更新用户" prop="updateUser">
-          <el-input v-model="form.updateUser" placeholder="请输入记录更新用户" />
-        </el-form-item>
-        <el-form-item label="删除标记，0表示未删除，1表示已删除" prop="deleteFlag">
-          <el-input v-model="form.deleteFlag" placeholder="请输入删除标记，0表示未删除，1表示已删除" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -225,9 +191,6 @@ export default {
         createTime: [
           { required: true, message: "记录创建时间不能为空", trigger: "blur" }
         ],
-        deleteFlag: [
-          { required: true, message: "删除标记，0表示未删除，1表示已删除不能为空", trigger: "blur" }
-        ]
       }
     };
   },

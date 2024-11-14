@@ -6,10 +6,9 @@ import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
 import com.calyee.common.utils.poi.ExcelUtil;
-import com.calyee.web.aiwarehouse.domain.Locations;
+import com.calyee.web.aiwarehouse.domain.entity.Locations;
 import com.calyee.web.aiwarehouse.service.ILocationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,6 @@ public class LocationsController extends BaseController {
     /**
      * 查询库位，记录仓库中每个具体存储位置的详细信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:list')")
     @GetMapping("/list")
     public TableDataInfo list(Locations locations) {
         startPage();
@@ -41,7 +39,6 @@ public class LocationsController extends BaseController {
     /**
      * 导出库位，记录仓库中每个具体存储位置的详细信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:export')")
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Locations locations) {
@@ -53,7 +50,6 @@ public class LocationsController extends BaseController {
     /**
      * 获取库位，记录仓库中每个具体存储位置的详细信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:query')")
     @GetMapping(value = "/{locationId}")
     public AjaxResult getInfo(@PathVariable("locationId") Long locationId) {
         return success(locationsService.selectLocationsByLocationId(locationId));
@@ -62,7 +58,6 @@ public class LocationsController extends BaseController {
     /**
      * 新增库位，记录仓库中每个具体存储位置的详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:add')")
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Locations locations) {
@@ -72,7 +67,6 @@ public class LocationsController extends BaseController {
     /**
      * 修改库位，记录仓库中每个具体存储位置的详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:edit')")
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Locations locations) {
@@ -82,7 +76,6 @@ public class LocationsController extends BaseController {
     /**
      * 删除库位，记录仓库中每个具体存储位置的详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:locations:remove')")
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{locationIds}")
     public AjaxResult remove(@PathVariable Long[] locationIds) {

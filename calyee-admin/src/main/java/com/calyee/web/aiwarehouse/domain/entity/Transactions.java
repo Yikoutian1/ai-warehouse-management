@@ -1,4 +1,4 @@
-package com.calyee.web.aiwarehouse.domain;
+package com.calyee.web.aiwarehouse.domain.entity;
 
 import com.calyee.common.annotation.Excel;
 import com.calyee.common.core.domain.BaseEntity;
@@ -19,7 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Transactions extends BaseEntity {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8023703102670362125L;
 
     /**
      * 交易记录唯一标识符

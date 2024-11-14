@@ -1,6 +1,6 @@
 package com.calyee.web.aiwarehouse.service;
 
-import com.calyee.web.aiwarehouse.domain.Inventory;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 
 import java.util.List;
 

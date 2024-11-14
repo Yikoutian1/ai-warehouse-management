@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="100px">
       <el-form-item label="关联的库存记录ID" prop="inventoryId">
         <el-input
           v-model="queryParams.inventoryId"
@@ -24,22 +24,6 @@
           value-format="yyyy-MM-dd"
           placeholder="请选择交易时间">
         </el-date-picker>
-      </el-form-item>
-      <el-form-item label="记录创建用户" prop="createUser">
-        <el-input
-          v-model="queryParams.createUser"
-          placeholder="请输入记录创建用户"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="删除标记，0表示未删除，1表示已删除" prop="deleteFlag">
-        <el-input
-          v-model="queryParams.deleteFlag"
-          placeholder="请输入删除标记，0表示未删除，1表示已删除"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -105,7 +89,6 @@
         </template>
       </el-table-column>
       <el-table-column label="记录创建用户" align="center" prop="createUser" />
-      <el-table-column label="删除标记，0表示未删除，1表示已删除" align="center" prop="deleteFlag" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -150,12 +133,6 @@
             value-format="yyyy-MM-dd"
             placeholder="请选择交易时间">
           </el-date-picker>
-        </el-form-item>
-        <el-form-item label="记录创建用户" prop="createUser">
-          <el-input v-model="form.createUser" placeholder="请输入记录创建用户" />
-        </el-form-item>
-        <el-form-item label="删除标记，0表示未删除，1表示已删除" prop="deleteFlag">
-          <el-input v-model="form.deleteFlag" placeholder="请输入删除标记，0表示未删除，1表示已删除" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -224,9 +201,6 @@ export default {
         createTime: [
           { required: true, message: "记录创建时间不能为空", trigger: "blur" }
         ],
-        deleteFlag: [
-          { required: true, message: "删除标记，0表示未删除，1表示已删除不能为空", trigger: "blur" }
-        ]
       }
     };
   },

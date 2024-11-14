@@ -1,41 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.calyee.web.aiwarehouse.mapper.LocationsMapper">
-    
+
     <resultMap type="Locations" id="LocationsResult">
-        <result property="locationId"    column="location_id"    />
-        <result property="area"    column="area"    />
-        <result property="aisle"    column="aisle"    />
-        <result property="bay"    column="bay"    />
-        <result property="level"    column="level"    />
-        <result property="position"    column="position"    />
-        <result property="createUser"    column="create_user"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateUser"    column="update_user"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="locationId" column="location_id"/>
+        <result property="area" column="area"/>
+        <result property="aisle" column="aisle"/>
+        <result property="bay" column="bay"/>
+        <result property="level" column="level"/>
+        <result property="position" column="position"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
     </resultMap>
 
     <sql id="selectLocationsVo">
-        select location_id, area, aisle, bay, level, position, create_user, create_time, update_user, update_time, delete_flag from awm_locations
+        select location_id,
+               area,
+               aisle,
+               bay,
+               level,
+               position,
+               create_user,
+               create_time,
+               update_user,
+               update_time,
+               delete_flag
+        from awm_locations
     </sql>
 
     <select id="selectLocationsList" parameterType="Locations" resultMap="LocationsResult">
         <include refid="selectLocationsVo"/>
-        <where>  
-            <if test="area != null  and area != ''"> and area = #{area}</if>
-            <if test="aisle != null  and aisle != ''"> and aisle = #{aisle}</if>
-            <if test="bay != null  and bay != ''"> and bay = #{bay}</if>
-            <if test="level != null  and level != ''"> and level = #{level}</if>
-            <if test="position != null  and position != ''"> and position = #{position}</if>
-            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
-            <if test="updateUser != null  and updateUser != ''"> and update_user = #{updateUser}</if>
-            <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+        <where>
+            <if test="area != null  and area != ''">and area = #{area}</if>
+            <if test="aisle != null  and aisle != ''">and aisle = #{aisle}</if>
+            <if test="bay != null  and bay != ''">and bay = #{bay}</if>
+            <if test="level != null  and level != ''">and level = #{level}</if>
+            <if test="position != null  and position != ''">and position = #{position}</if>
+            <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
+            <if test="updateUser != null  and updateUser != ''">and update_user = #{updateUser}</if>
+            <if test="deleteFlag != null ">and delete_flag = #{deleteFlag}</if>
         </where>
     </select>
-    
+
     <select id="selectLocationsByLocationId" parameterType="Long" resultMap="LocationsResult">
         <include refid="selectLocationsVo"/>
         where location_id = #{locationId}
@@ -54,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateUser != null">update_user,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="deleteFlag != null">delete_flag,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="area != null and area != ''">#{area},</if>
             <if test="aisle != null and aisle != ''">#{aisle},</if>
@@ -66,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateUser != null">#{updateUser},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="deleteFlag != null">#{deleteFlag},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateLocations" parameterType="Locations">
@@ -87,11 +98,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteLocationsByLocationId" parameterType="Long">
-        delete from awm_locations where location_id = #{locationId}
+        delete
+        from awm_locations
+        where location_id = #{locationId}
     </delete>
 
     <delete id="deleteLocationsByLocationIds" parameterType="String">
-        delete from awm_locations where location_id in 
+        delete from awm_locations where location_id in
         <foreach item="locationId" collection="array" open="(" separator="," close=")">
             #{locationId}
         </foreach>

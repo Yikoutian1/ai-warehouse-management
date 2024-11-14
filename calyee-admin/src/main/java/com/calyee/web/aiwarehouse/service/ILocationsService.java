@@ -1,6 +1,6 @@
 package com.calyee.web.aiwarehouse.service;
 
-import com.calyee.web.aiwarehouse.domain.Locations;
+import com.calyee.web.aiwarehouse.domain.entity.Locations;
 
 import java.util.List;
 
