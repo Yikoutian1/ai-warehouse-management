@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.calyee.web.aiwarehouse.domain.entity.Transactions;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author CALYEE
  * @date 2024-11-09
  */
-public interface ITransactionsService {
+public interface ITransactionsService extends IService<Transactions> {
     /**
      * 查询出入库记录，记录每次库存变动
      *

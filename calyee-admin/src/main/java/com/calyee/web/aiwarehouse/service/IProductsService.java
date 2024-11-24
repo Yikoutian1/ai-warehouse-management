@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.calyee.web.aiwarehouse.domain.entity.Products;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author CALYEE
  * @date 2024-11-09
  */
-public interface IProductsService {
+public interface IProductsService extends IService<Products> {
     /**
      * 查询产品，存储产品信息
      *

@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calyee.web.aiwarehouse.domain.entity.Transactions;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Mapper
-public interface TransactionsMapper {
+public interface TransactionsMapper extends BaseMapper<Transactions> {
     /**
      * 查询出入库记录，记录每次库存变动
      *

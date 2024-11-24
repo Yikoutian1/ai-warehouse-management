@@ -93,16 +93,16 @@
         where product_id = #{productId}
     </update>
 
-    <delete id="deleteProductsByProductId" parameterType="Long">
-        delete
-        from awm_products
+    <update id="deleteProductsByProductId" parameterType="Long">
+        update awm_products
+        set delete_flag = 1
         where product_id = #{productId}
-    </delete>
+    </update>
 
-    <delete id="deleteProductsByProductIds" parameterType="String">
-        delete from awm_products where product_id in
+    <update id="deleteProductsByProductIds" parameterType="String">
+        update awm_products set delete_flag = 1 where product_id in
         <foreach item="productId" collection="array" open="(" separator="," close=")">
             #{productId}
         </foreach>
-    </delete>
+    </update>
 </mapper>

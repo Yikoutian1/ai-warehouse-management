@@ -80,16 +80,15 @@
         where transaction_id = #{transactionId}
     </update>
 
-    <delete id="deleteTransactionsByTransactionId" parameterType="Long">
-        delete
-        from awm_transactions
+    <update id="deleteTransactionsByTransactionId" parameterType="Long">
+        update awm_transactions set delete_flag = 1
         where transaction_id = #{transactionId}
-    </delete>
+    </update>
 
-    <delete id="deleteTransactionsByTransactionIds" parameterType="String">
-        delete from awm_transactions where transaction_id in
+    <update id="deleteTransactionsByTransactionIds" parameterType="String">
+        update awm_transactions set delete_flag = 1 where transaction_id in
         <foreach item="transactionId" collection="array" open="(" separator="," close=")">
             #{transactionId}
         </foreach>
-    </delete>
+    </update>
 </mapper>

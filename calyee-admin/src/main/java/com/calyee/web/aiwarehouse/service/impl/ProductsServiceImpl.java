@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.calyee.common.utils.DateUtils;
 import com.calyee.web.aiwarehouse.domain.entity.Products;
 import com.calyee.web.aiwarehouse.mapper.ProductsMapper;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class ProductsServiceImpl implements IProductsService {
+public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products> implements IProductsService{
     private ProductsMapper productsMapper;
 
     /**

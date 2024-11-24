@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.calyee.web.aiwarehouse.mapper.InventoryMapper">
-    
+
     <resultMap type="Inventory" id="InventoryResult">
-        <result property="inventoryId"    column="inventory_id"    />
-        <result property="locationId"    column="location_id"    />
-        <result property="productId"    column="product_id"    />
-        <result property="quantity"    column="quantity"    />
-        <result property="createUser"    column="create_user"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateUser"    column="update_user"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="inventoryId" column="inventory_id"/>
+        <result property="locationId" column="location_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
     </resultMap>
 
     <sql id="selectInventoryVo">
-        select inventory_id, location_id, product_id, quantity, create_user, create_time, update_user, update_time, delete_flag from awm_inventory
+        select inventory_id,
+               location_id,
+               product_id,
+               quantity,
+               create_user,
+               create_time,
+               update_user,
+               update_time,
+               delete_flag
+        from awm_inventory
     </sql>
 
     <select id="selectInventoryList" parameterType="Inventory" resultMap="InventoryResult">
         <include refid="selectInventoryVo"/>
-        <where>  
-            <if test="locationId != null "> and location_id = #{locationId}</if>
-            <if test="productId != null "> and product_id = #{productId}</if>
-            <if test="quantity != null "> and quantity = #{quantity}</if>
-            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
-            <if test="updateUser != null  and updateUser != ''"> and update_user = #{updateUser}</if>
-            <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>
+        <where>
+            <if test="locationId != null ">and location_id = #{locationId}</if>
+            <if test="productId != null ">and product_id = #{productId}</if>
+            <if test="quantity != null ">and quantity = #{quantity}</if>
+            <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
+            <if test="updateUser != null  and updateUser != ''">and update_user = #{updateUser}</if>
+            <if test="deleteFlag != null ">and delete_flag = #{deleteFlag}</if>
         </where>
     </select>
-    
+
     <select id="selectInventoryByInventoryId" parameterType="Long" resultMap="InventoryResult">
         <include refid="selectInventoryVo"/>
         where inventory_id = #{inventoryId}
@@ -76,14 +85,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where inventory_id = #{inventoryId}
     </update>
 
-    <delete id="deleteInventoryByInventoryId" parameterType="Long">
-        delete from awm_inventory where inventory_id = #{inventoryId}
-    </delete>
+    <update id="deleteInventoryByInventoryId" parameterType="Long">
+        update awm_inventory
+        set delete_flag = 1
+        where inventory_id = #{inventoryId}
+    </update>
 
-    <delete id="deleteInventoryByInventoryIds" parameterType="String">
-        delete from awm_inventory where inventory_id in 
+    <update id="deleteInventoryByInventoryIds" parameterType="String">
+        update awm_inventory set delete_flag = 1 where inventory_id in
         <foreach item="inventoryId" collection="array" open="(" separator="," close=")">
             #{inventoryId}
         </foreach>
-    </delete>
+    </update>
 </mapper>

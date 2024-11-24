@@ -1,7 +1,10 @@
 package com.calyee.web.aiwarehouse.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.calyee.common.utils.DateUtils;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
+import com.calyee.web.aiwarehouse.mapper.InventoryMapper;
 import com.calyee.web.aiwarehouse.mapper.LocationsMapper;
 import com.calyee.web.aiwarehouse.service.ILocationsService;
 import lombok.AllArgsConstructor;
@@ -17,7 +20,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class LocationsServiceImpl implements ILocationsService {
+public class LocationsServiceImpl extends ServiceImpl<LocationsMapper, Locations> implements ILocationsService {
     private LocationsMapper locationsMapper;
 
     /**

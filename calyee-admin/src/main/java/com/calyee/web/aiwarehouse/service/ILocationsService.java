@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author CALYEE
  * @date 2024-11-09
  */
-public interface ILocationsService {
+public interface ILocationsService extends IService<Locations> {
     /**
      * 查询库位，记录仓库中每个具体存储位置的详细信息
      *

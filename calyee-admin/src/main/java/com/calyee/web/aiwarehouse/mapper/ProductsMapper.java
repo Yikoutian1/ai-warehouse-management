@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calyee.web.aiwarehouse.domain.entity.Products;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Mapper
-public interface ProductsMapper {
+public interface ProductsMapper extends BaseMapper<Products> {
     /**
      * 查询产品，存储产品信息
      *

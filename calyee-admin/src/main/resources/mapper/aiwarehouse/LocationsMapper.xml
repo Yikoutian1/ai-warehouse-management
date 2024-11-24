@@ -97,16 +97,16 @@
         where location_id = #{locationId}
     </update>
 
-    <delete id="deleteLocationsByLocationId" parameterType="Long">
-        delete
-        from awm_locations
+    <update id="deleteLocationsByLocationId" parameterType="Long">
+        update awm_locations
+        set delete_flag = 1
         where location_id = #{locationId}
-    </delete>
+    </update>
 
-    <delete id="deleteLocationsByLocationIds" parameterType="String">
-        delete from awm_locations where location_id in
+    <update id="deleteLocationsByLocationIds" parameterType="String">
+        update awm_locations set delete_flag = 1 where location_id in
         <foreach item="locationId" collection="array" open="(" separator="," close=")">
             #{locationId}
         </foreach>
-    </delete>
+    </update>
 </mapper>

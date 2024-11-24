@@ -1,5 +1,6 @@
 package com.calyee.web.aiwarehouse.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2024-11-09
  */
 @Mapper
-public interface LocationsMapper {
+public interface LocationsMapper extends BaseMapper<Locations> {
     /**
      * 查询库位，记录仓库中每个具体存储位置的详细信息
      *
