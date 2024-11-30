@@ -35,9 +35,9 @@ public class Products extends BaseEntity {
     private String description;
 
     /**
-     * 库存单位eg: DP-992882
+     * 产品码eg: DP-992882
      */
-    @Excel(name = "库存单位eg: DP-992882")
+    @Excel(name = "产品码eg: DP-992882")
     private String sku;
 
     /**

@@ -173,8 +173,8 @@
     />
 
     <!-- 添加或修改库位，记录仓库中每个具体存储位置的详细信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="库位所在的仓库区域" prop="area">
           <el-input
             v-model="form.area"

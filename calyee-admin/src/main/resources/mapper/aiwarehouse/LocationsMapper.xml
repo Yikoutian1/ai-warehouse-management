@@ -36,11 +36,11 @@
     <select id="selectLocationsList" parameterType="Locations" resultMap="LocationsResult">
         <include refid="selectLocationsVo"/>
         <where>
-            <if test="area != null  and area != ''">and area = #{area}</if>
-            <if test="aisle != null  and aisle != ''">and aisle = #{aisle}</if>
-            <if test="bay != null  and bay != ''">and bay = #{bay}</if>
-            <if test="level != null  and level != ''">and level = #{level}</if>
-            <if test="position != null  and position != ''">and position = #{position}</if>
+            <if test="area != null  and area != ''">and area like concat("%",#{area} ,"%")</if>
+            <if test="aisle != null  and aisle != ''">and aisle like concat("%",#{aisle} ,"%")</if>
+            <if test="bay != null  and bay != ''">and bay like concat("%",#{bay} ,"%")</if>
+            <if test="level != null  and level != ''">and level like concat("%",#{level} ,"%")</if>
+            <if test="position != null  and position != ''">and position like concat("%",#{position} ,"%")</if>
             <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
             <if test="updateUser != null  and updateUser != ''">and update_user = #{updateUser}</if>
             <if test="deleteFlag != null ">and delete_flag = #{deleteFlag}</if>

@@ -50,7 +50,7 @@ public interface IProductsService extends IService<Products> {
      * @param productIds 需要删除的产品，存储产品信息主键集合
      * @return 结果
      */
-    public int deleteProductsByProductIds(Long[] productIds);
+    public int deleteProductsByProductIds(List<String> productIds);
 
     /**
      * 删除产品，存储产品信息信息

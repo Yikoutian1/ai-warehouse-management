@@ -5,6 +5,7 @@ import com.calyee.common.core.controller.BaseController;
 import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
+import com.calyee.common.utils.SecurityUtils;
 import com.calyee.common.utils.poi.ExcelUtil;
 import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import com.calyee.web.aiwarehouse.service.IInventoryService;
@@ -61,6 +62,9 @@ public class InventoryController extends BaseController {
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Inventory inventory) {
+        String userId = SecurityUtils.getUserStringId();
+        inventory.setUpdateUser(userId);
+        inventory.setCreateUser(userId);
         return toAjax(inventoryService.insertInventory(inventory));
     }
 
@@ -70,6 +74,8 @@ public class InventoryController extends BaseController {
     @Log(title = "库存，记录库存量及位置信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Inventory inventory) {
+        String userId = SecurityUtils.getUserStringId();
+        inventory.setUpdateUser(userId);
         return toAjax(inventoryService.updateInventory(inventory));
     }
 

@@ -8,11 +8,9 @@ import java.util.Objects;
 
 /**
  * 操作消息提醒
- *
- * @author CALYEE
  */
 public class AjaxResult extends HashMap<String, Object> {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5708869014922907579L;
 
     /**
      * 状态码

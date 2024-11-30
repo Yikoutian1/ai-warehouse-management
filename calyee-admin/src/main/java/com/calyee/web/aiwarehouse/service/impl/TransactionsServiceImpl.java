@@ -74,7 +74,7 @@ public class TransactionsServiceImpl extends ServiceImpl<TransactionsMapper, Tra
      * @return 结果
      */
     @Override
-    public int deleteTransactionsByTransactionIds(Long[] transactionIds) {
+    public int deleteTransactionsByTransactionIds(List<String> transactionIds) {
         return transactionsMapper.deleteTransactionsByTransactionIds(transactionIds);
     }
 

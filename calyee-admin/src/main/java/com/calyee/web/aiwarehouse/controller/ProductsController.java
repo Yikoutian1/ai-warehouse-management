@@ -5,6 +5,7 @@ import com.calyee.common.core.controller.BaseController;
 import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
+import com.calyee.common.utils.SecurityUtils;
 import com.calyee.common.utils.poi.ExcelUtil;
 import com.calyee.web.aiwarehouse.domain.entity.Products;
 import com.calyee.web.aiwarehouse.service.IProductsService;
@@ -61,6 +62,9 @@ public class ProductsController extends BaseController {
     @Log(title = "产品，存储产品信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Products products) {
+        String userId = SecurityUtils.getUserStringId();
+        products.setUpdateUser(userId);
+        products.setCreateUser(userId);
         return toAjax(productsService.insertProducts(products));
     }
 
@@ -70,6 +74,8 @@ public class ProductsController extends BaseController {
     @Log(title = "产品，存储产品信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Products products) {
+        String userId = SecurityUtils.getUserStringId();
+        products.setUpdateUser(userId);
         return toAjax(productsService.updateProducts(products));
     }
 
@@ -78,7 +84,7 @@ public class ProductsController extends BaseController {
      */
     @Log(title = "产品，存储产品信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{productIds}")
-    public AjaxResult remove(@PathVariable Long[] productIds) {
+    public AjaxResult remove(@PathVariable List<String> productIds) {
         return toAjax(productsService.deleteProductsByProductIds(productIds));
     }
 }

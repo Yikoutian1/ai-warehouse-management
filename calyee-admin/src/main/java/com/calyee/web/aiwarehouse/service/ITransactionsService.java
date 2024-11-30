@@ -50,7 +50,7 @@ public interface ITransactionsService extends IService<Transactions> {
      * @param transactionIds 需要删除的出入库记录，记录每次库存变动主键集合
      * @return 结果
      */
-    public int deleteTransactionsByTransactionIds(Long[] transactionIds);
+    public int deleteTransactionsByTransactionIds(List<String> transactionIds);
 
     /**
      * 删除出入库记录，记录每次库存变动信息

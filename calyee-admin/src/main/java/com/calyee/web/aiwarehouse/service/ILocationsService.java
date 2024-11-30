@@ -50,7 +50,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locationIds 需要删除的库位，记录仓库中每个具体存储位置的详细信息主键集合
      * @return 结果
      */
-    public int deleteLocationsByLocationIds(Long[] locationIds);
+    public int deleteLocationsByLocationIds(List<String> locationIds);
 
     /**
      * 删除库位，记录仓库中每个具体存储位置的详细信息信息

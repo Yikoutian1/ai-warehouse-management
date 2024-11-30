@@ -1,6 +1,13 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="100px">
+    <el-form
+      :model="queryParams"
+      ref="queryForm"
+      size="small"
+      :inline="true"
+      v-show="showSearch"
+      label-width="100px"
+    >
       <el-form-item label="关联的库存记录ID" prop="inventoryId">
         <el-input
           v-model="queryParams.inventoryId"
@@ -18,16 +25,26 @@
         />
       </el-form-item>
       <el-form-item label="交易时间" prop="transactionTime">
-        <el-date-picker clearable
+        <el-date-picker
+          clearable
           v-model="queryParams.transactionTime"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="请选择交易时间">
+          placeholder="请选择交易时间"
+        >
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+          >搜索</el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          >重置</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -40,7 +57,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:transactions:add']"
-        >新增</el-button>
+          >新增</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -51,7 +69,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:transactions:edit']"
-        >修改</el-button>
+          >修改</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -62,7 +81,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:transactions:remove']"
-        >删除</el-button>
+          >删除</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -72,24 +92,54 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['system:transactions:export']"
-        >导出</el-button>
+          >导出</el-button
+        >
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="transactionsList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="transactionsList"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="交易记录唯一标识符" align="center" prop="transactionId" />
-      <el-table-column label="关联的库存记录ID" align="center" prop="inventoryId" />
-      <el-table-column label="交易类型，IN表示入库，OUT表示出库" align="center" prop="transactionType" />
+      <el-table-column
+        label="交易记录唯一标识符"
+        align="center"
+        prop="transactionId"
+      />
+      <el-table-column
+        label="关联的库存记录ID"
+        align="center"
+        prop="inventoryId"
+      />
+      <el-table-column label="交易类型" align="center" prop="transactionType">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.transactionType === 'IN'" type="danger">出库</el-tag>
+          <el-tag v-else type="success">入库</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="交易数量" align="center" prop="quantity" />
-      <el-table-column label="交易时间" align="center" prop="transactionTime" width="180">
+      <el-table-column
+        label="交易时间"
+        align="center"
+        prop="transactionTime"
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.transactionTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="记录创建用户" align="center" prop="createUser" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+      >
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -97,20 +147,22 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:transactions:edit']"
-          >修改</el-button>
+            >修改</el-button
+          >
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:transactions:remove']"
-          >删除</el-button>
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
@@ -121,17 +173,22 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="关联的库存记录ID" prop="inventoryId">
-          <el-input v-model="form.inventoryId" placeholder="请输入关联的库存记录ID" />
+          <el-input
+            v-model="form.inventoryId"
+            placeholder="请输入关联的库存记录ID"
+          />
         </el-form-item>
         <el-form-item label="交易数量" prop="quantity">
           <el-input v-model="form.quantity" placeholder="请输入交易数量" />
         </el-form-item>
         <el-form-item label="交易时间" prop="transactionTime">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.transactionTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择交易时间">
+            placeholder="请选择交易时间"
+          >
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -144,11 +201,11 @@
 </template>
 
 <script>
-import { listTransactions, getTransactions, delTransactions, addTransactions, updateTransactions } from "@/api/system/transactions";
+import { listTransactions, getTransactions, delTransactions, addTransactions, updateTransactions } from "@/api/system/transactions"
 
 export default {
   name: "Transactions",
-  data() {
+  data () {
     return {
       // 遮罩层
       loading: true,
@@ -187,7 +244,7 @@ export default {
           { required: true, message: "关联的库存记录ID不能为空", trigger: "blur" }
         ],
         transactionType: [
-          { required: true, message: "交易类型，IN表示入库，OUT表示出库不能为空", trigger: "change" }
+          { required: true, message: "交易类型", trigger: "change" }
         ],
         quantity: [
           { required: true, message: "交易数量不能为空", trigger: "blur" }
@@ -202,28 +259,28 @@ export default {
           { required: true, message: "记录创建时间不能为空", trigger: "blur" }
         ],
       }
-    };
+    }
   },
-  created() {
-    this.getList();
+  created () {
+    this.getList()
   },
   methods: {
     /** 查询出入库记录，记录每次库存变动列表 */
-    getList() {
-      this.loading = true;
+    getList () {
+      this.loading = true
       listTransactions(this.queryParams).then(response => {
-        this.transactionsList = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
+        this.transactionsList = response.rows
+        this.total = response.total
+        this.loading = false
+      })
     },
     // 取消按钮
-    cancel() {
-      this.open = false;
-      this.reset();
+    cancel () {
+      this.open = false
+      this.reset()
     },
     // 表单重置
-    reset() {
+    reset () {
       this.form = {
         transactionId: null,
         inventoryId: null,
@@ -233,73 +290,73 @@ export default {
         createUser: null,
         createTime: null,
         deleteFlag: null
-      };
-      this.resetForm("form");
+      }
+      this.resetForm("form")
     },
     /** 搜索按钮操作 */
-    handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
+    handleQuery () {
+      this.queryParams.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
-    resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+    resetQuery () {
+      this.resetForm("queryForm")
+      this.handleQuery()
     },
     // 多选框选中数据
-    handleSelectionChange(selection) {
+    handleSelectionChange (selection) {
       this.ids = selection.map(item => item.transactionId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加出入库记录，记录每次库存变动";
+    handleAdd () {
+      this.reset()
+      this.open = true
+      this.title = "添加出入库记录，记录每次库存变动"
     },
     /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
+    handleUpdate (row) {
+      this.reset()
       const transactionId = row.transactionId || this.ids
       getTransactions(transactionId).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改出入库记录，记录每次库存变动";
-      });
+        this.form = response.data
+        this.open = true
+        this.title = "修改出入库记录，记录每次库存变动"
+      })
     },
     /** 提交按钮 */
-    submitForm() {
+    submitForm () {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.transactionId != null) {
             updateTransactions(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess("修改成功")
+              this.open = false
+              this.getList()
+            })
           } else {
             addTransactions(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess("新增成功")
+              this.open = false
+              this.getList()
+            })
           }
         }
-      });
+      })
     },
     /** 删除按钮操作 */
-    handleDelete(row) {
-      const transactionIds = row.transactionId || this.ids;
-      this.$modal.confirm('是否确认删除出入库记录，记录每次库存变动编号为"' + transactionIds + '"的数据项？').then(function() {
-        return delTransactions(transactionIds);
+    handleDelete (row) {
+      const transactionIds = row.transactionId || this.ids
+      this.$modal.confirm('是否确认删除出入库记录，记录每次库存变动编号为"' + transactionIds + '"的数据项？').then(function () {
+        return delTransactions(transactionIds)
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+        this.getList()
+        this.$modal.msgSuccess("删除成功")
+      }).catch(() => { })
     },
     /** 导出按钮操作 */
-    handleExport() {
+    handleExport () {
       this.download('system/transactions/export', {
         ...this.queryParams
       }, `transactions_${new Date().getTime()}.xlsx`)

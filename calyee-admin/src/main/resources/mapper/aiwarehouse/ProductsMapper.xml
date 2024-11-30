@@ -34,11 +34,10 @@
     <select id="selectProductsList" parameterType="Products" resultMap="ProductsResult">
         <include refid="selectProductsVo"/>
         <where>
-            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
-                '%')
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},'%')
             </if>
-            <if test="description != null  and description != ''">and description = #{description}</if>
-            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+            <if test="description != null  and description != ''">and description like concat('%', #{description},'%')</if>
+            <if test="sku != null  and sku != ''">and sku like concat('%', #{sku},'%')</if>
             <if test="categoryId != null ">and category_id = #{categoryId}</if>
             <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
             <if test="updateUser != null  and updateUser != ''">and update_user = #{updateUser}</if>

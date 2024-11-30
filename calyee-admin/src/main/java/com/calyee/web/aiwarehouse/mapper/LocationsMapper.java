@@ -60,5 +60,5 @@ public interface LocationsMapper extends BaseMapper<Locations> {
      * @param locationIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteLocationsByLocationIds(Long[] locationIds);
+    public int deleteLocationsByLocationIds(List<String> locationIds);
 }

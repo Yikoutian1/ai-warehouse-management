@@ -5,6 +5,7 @@ import com.calyee.common.core.controller.BaseController;
 import com.calyee.common.core.domain.AjaxResult;
 import com.calyee.common.core.page.TableDataInfo;
 import com.calyee.common.enums.BusinessType;
+import com.calyee.common.utils.SecurityUtils;
 import com.calyee.common.utils.poi.ExcelUtil;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
 import com.calyee.web.aiwarehouse.service.ILocationsService;
@@ -31,6 +32,8 @@ public class LocationsController extends BaseController {
      */
     @GetMapping("/list")
     public TableDataInfo list(Locations locations) {
+        // todo 1. 用户需要提供查询的用户名回显
+        // todo 2. 还需要新建一张表用于存储所有区域的库位情况（前端展示用）
         startPage();
         List<Locations> list = locationsService.selectLocationsList(locations);
         return getDataTable(list);
@@ -61,6 +64,9 @@ public class LocationsController extends BaseController {
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Locations locations) {
+        String userId = SecurityUtils.getUserStringId();
+        locations.setUpdateUser(userId);
+        locations.setCreateUser(userId);
         return toAjax(locationsService.insertLocations(locations));
     }
 
@@ -70,6 +76,8 @@ public class LocationsController extends BaseController {
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Locations locations) {
+        String userId = SecurityUtils.getUserStringId();
+        locations.setUpdateUser(userId);
         return toAjax(locationsService.updateLocations(locations));
     }
 
@@ -78,7 +86,7 @@ public class LocationsController extends BaseController {
      */
     @Log(title = "库位，记录仓库中每个具体存储位置的详细信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{locationIds}")
-    public AjaxResult remove(@PathVariable Long[] locationIds) {
+    public AjaxResult remove(@PathVariable List<String> locationIds) {
         return toAjax(locationsService.deleteLocationsByLocationIds(locationIds));
     }
 }

@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * 启动程序
- *
- * @author calyee
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class Application {

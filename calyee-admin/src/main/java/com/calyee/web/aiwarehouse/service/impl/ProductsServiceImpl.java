@@ -74,7 +74,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products> i
      * @return 结果
      */
     @Override
-    public int deleteProductsByProductIds(Long[] productIds) {
+    public int deleteProductsByProductIds(List<String> productIds) {
         return productsMapper.deleteProductsByProductIds(productIds);
     }
 

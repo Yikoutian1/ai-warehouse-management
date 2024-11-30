@@ -3,7 +3,7 @@
 ## 架构及其思路模块
 
 1. **库存管理**：实时监控库存情况，实现精确的库存盘点、入库、出库等操作。
-
+入库出库已有
 
 
 2. **作业调度**：根据订单需求，自动调度仓库内的设备和人员，优化作业流程。
@@ -34,19 +34,17 @@
    - **人员管理**：为仓库工作人员提供手持设备，接收作业指令，并反馈作业状态。
 
 3. **数据分析**：分析库存数据、作业数据等，为决策提供依据。
-
+（暂不处理）
 
 
 4. **设备监控**：实时监控仓库内设备的状态，确保其正常运行。
-
 XxlJob
 
 5. **安全监控**：通过视频监控、环境监测等手段，确保仓库安全。
-
-
+需要新建一个表，用于展示当前选择区域的库存情况（大屏）
 
 6. **RFID管理**：利用RFID技术实现物品的自动识别、追踪和定位。
-
+提供接口即可
 
 
 ## 技术选型
@@ -78,7 +76,7 @@ CREATE TABLE `products` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '产品唯一标识符',
   `product_name` VARCHAR(100) NOT NULL COMMENT '产品名称',
   `description` TEXT COMMENT '产品描述',
-  `sku` VARCHAR(50) NOT NULL COMMENT '库存单位',
+  `sku` VARCHAR(50) NOT NULL COMMENT '产品码：例如CP—123',
   `category_id` INT COMMENT '产品类别ID',
   `create_user` bigint(100) NOT NULL COMMENT '创建用户',
   `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
