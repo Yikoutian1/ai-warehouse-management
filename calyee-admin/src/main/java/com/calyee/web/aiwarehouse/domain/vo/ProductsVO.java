@@ -1,7 +1,6 @@
-package com.calyee.web.aiwarehouse.domain.entity;
+package com.calyee.web.aiwarehouse.domain.vo;
 
 import com.calyee.common.annotation.Excel;
-import com.calyee.common.core.domain.BaseEntity;
 import lombok.*;
 
 /**
@@ -10,13 +9,11 @@ import lombok.*;
  * @author CALYEE
  * @date 2024-11-09
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Products extends BaseEntity {
-    private static final long serialVersionUID = 7336568948494388308L;
+public class ProductsVO{
     /**
      * 产品唯一标识符
      */
@@ -51,23 +48,4 @@ public class Products extends BaseEntity {
      */
     @Excel(name = "产品类别ID")
     private Long categoryId;
-
-    /**
-     * 记录创建用户
-     */
-    @Excel(name = "记录创建用户")
-    private String createUser;
-
-    /**
-     * 记录更新用户
-     */
-    @Excel(name = "记录更新用户")
-    private String updateUser;
-
-    /**
-     * 删除标记，0表示未删除，1表示已删除
-     */
-    @Excel(name = "删除标记，0表示未删除，1表示已删除")
-    private Long deleteFlag;
-
 }

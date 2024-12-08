@@ -2,13 +2,20 @@ package com.calyee.web.aiwarehouse.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.calyee.common.utils.DateUtils;
+import com.calyee.web.aiwarehouse.assembler.ProductAssembler;
+import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
+import com.calyee.web.aiwarehouse.domain.entity.Products;
+import com.calyee.web.aiwarehouse.domain.vo.ProductsVO;
 import com.calyee.web.aiwarehouse.mapper.LocationsMapper;
+import com.calyee.web.aiwarehouse.service.IInventoryService;
 import com.calyee.web.aiwarehouse.service.ILocationsService;
+import com.calyee.web.aiwarehouse.service.IProductsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 库位，记录仓库中每个具体存储位置的详细信息Service业务层处理
@@ -19,7 +26,10 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class LocationsServiceImpl extends ServiceImpl<LocationsMapper, Locations> implements ILocationsService {
+
     private LocationsMapper locationsMapper;
+    private IProductsService productsService;
+    private IInventoryService inventoryService;
 
     /**
      * 查询库位，记录仓库中每个具体存储位置的详细信息
@@ -87,5 +97,18 @@ public class LocationsServiceImpl extends ServiceImpl<LocationsMapper, Locations
     @Override
     public int deleteLocationsByLocationId(Long locationId) {
         return locationsMapper.deleteLocationsByLocationId(locationId);
+    }
+
+    @Override
+    public ProductsVO product(String locationIds) {
+        Inventory inventory = inventoryService.selectOneByLocationsId(locationIds);
+        if (Objects.isNull(inventory)) {
+            return null;
+        }
+        Products products = productsService.selectProductsByProductId(inventory.getProductId());
+        if (Objects.isNull(products)) {
+            return null;
+        }
+        return ProductAssembler.toVO(products); // todo前端适配 写页面
     }
 }

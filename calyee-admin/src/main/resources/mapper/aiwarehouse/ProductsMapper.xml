@@ -9,6 +9,7 @@
         <result property="productName" column="product_name"/>
         <result property="description" column="description"/>
         <result property="sku" column="sku"/>
+        <result property="img" column="img"/>
         <result property="categoryId" column="category_id"/>
         <result property="createUser" column="create_user"/>
         <result property="createTime" column="create_time"/>
@@ -18,25 +19,19 @@
     </resultMap>
 
     <sql id="selectProductsVo">
-        select product_id,
-               product_name,
-               description,
-               sku,
-               category_id,
-               create_user,
-               create_time,
-               update_user,
-               update_time,
-               delete_flag
-        from awm_products
+         product_id, product_name, description,img,sku,category_id,create_user,create_time,update_user,update_time,delete_flag
     </sql>
 
     <select id="selectProductsList" parameterType="Products" resultMap="ProductsResult">
+        select
         <include refid="selectProductsVo"/>
         <where>
-            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},'%')
+            <if test="productName != null  and productName != ''">and product_name like concat('%',
+                #{productName},'%')
             </if>
-            <if test="description != null  and description != ''">and description like concat('%', #{description},'%')</if>
+            <if test="description != null  and description != ''">and description like concat('%', #{description},'%')
+            </if>
+            <if test="img != null and img != ''">img = #{img}</if>
             <if test="sku != null  and sku != ''">and sku like concat('%', #{sku},'%')</if>
             <if test="categoryId != null ">and category_id = #{categoryId}</if>
             <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
@@ -46,7 +41,9 @@
     </select>
 
     <select id="selectProductsByProductId" parameterType="Long" resultMap="ProductsResult">
+        select product_id,
         <include refid="selectProductsVo"/>
+        from awm_products
         where product_id = #{productId}
     </select>
 
@@ -67,6 +64,7 @@
             <if test="productName != null and productName != ''">#{productName},</if>
             <if test="description != null">#{description},</if>
             <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="img != null and img != ''">img = #{img},</if>
             <if test="categoryId != null">#{categoryId},</if>
             <if test="createUser != null and createUser != ''">#{createUser},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -81,6 +79,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="productName != null and productName != ''">product_name = #{productName},</if>
             <if test="description != null">description = #{description},</if>
+            <if test="img != null and img != ''">img = #{img},</if>
             <if test="sku != null and sku != ''">sku = #{sku},</if>
             <if test="categoryId != null">category_id = #{categoryId},</if>
             <if test="createUser != null and createUser != ''">create_user = #{createUser},</if>

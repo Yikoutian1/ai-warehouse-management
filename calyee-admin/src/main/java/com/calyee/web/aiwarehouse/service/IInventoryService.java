@@ -59,4 +59,7 @@ public interface IInventoryService extends IService<Inventory> {
      * @return 结果
      */
     public int deleteInventoryByInventoryId(Long inventoryId);
+
+
+    Inventory selectOneByLocationsId(String locationIds);
 }

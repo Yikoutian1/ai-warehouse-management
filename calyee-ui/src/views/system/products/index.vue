@@ -109,6 +109,15 @@
       <el-table-column label="产品名称" align="center" prop="productName" />
       <el-table-column label="产品描述" align="center" prop="description" />
       <el-table-column label="产品码" align="center" prop="sku" />
+      <el-table-column label="图片" align="center" prop="img">
+        <template slot-scope="scope">
+          <el-image
+            style="width: 100px; height: 100px"
+            :src="scope.row.img"
+            :fit="fit"
+          ></el-image>
+        </template>
+      </el-table-column>
       <el-table-column
         label="产品类别ID"
         width="120"
@@ -166,6 +175,9 @@
         </el-form-item>
         <el-form-item label="产品码" prop="sku">
           <el-input v-model="form.sku" placeholder="请输入产品码" />
+        </el-form-item>
+        <el-form-item label="图片链接" prop="img">
+          <el-input v-model="form.img" placeholder="请输入图片链接" />
         </el-form-item>
         <el-form-item label="产品类别ID" prop="categoryId">
           <el-input v-model="form.categoryId" placeholder="请输入产品类别ID" />

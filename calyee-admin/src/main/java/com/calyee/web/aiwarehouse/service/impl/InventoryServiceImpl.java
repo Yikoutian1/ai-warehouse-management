@@ -89,4 +89,9 @@ public class InventoryServiceImpl extends ServiceImpl<InventoryMapper, Inventory
     public int deleteInventoryByInventoryId(Long inventoryId) {
         return inventoryMapper.deleteInventoryByInventoryId(inventoryId);
     }
+
+    @Override
+    public Inventory selectOneByLocationsId(String locationIds) {
+        return inventoryMapper.selectOneByLocationsId(locationIds);
+    }
 }

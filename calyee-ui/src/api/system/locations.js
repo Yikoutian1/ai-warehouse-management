@@ -42,3 +42,12 @@ export function delLocations(locationId) {
     method: 'delete'
   })
 }
+
+// 查看当前库位下的产品列表
+export function getLocationsProducts(locationId) {
+  return request({
+    url: '/system/locations/product/' + locationId,
+    method: 'get'
+  })
+}
+

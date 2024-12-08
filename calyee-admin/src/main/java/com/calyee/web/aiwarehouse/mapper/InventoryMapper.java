@@ -3,6 +3,7 @@ package com.calyee.web.aiwarehouse.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.calyee.web.aiwarehouse.domain.entity.Inventory;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -61,4 +62,6 @@ public interface InventoryMapper extends BaseMapper<Inventory> {
      * @return 结果
      */
     int deleteInventoryByInventoryIds(Long[] inventoryIds);
+
+    Inventory selectOneByLocationsId(@Param("locationIds") String locationIds);
 }

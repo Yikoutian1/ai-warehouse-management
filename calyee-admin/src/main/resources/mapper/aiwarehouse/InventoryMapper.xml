@@ -45,6 +45,20 @@
         <include refid="selectInventoryVo"/>
         where inventory_id = #{inventoryId}
     </select>
+    <select id="selectOneByLocationsId" resultMap="InventoryResult">
+        select inventory_id,
+               location_id,
+               product_id,
+               quantity,
+               create_user,
+               create_time,
+               update_user,
+               update_time,
+               delete_flag
+        from awm_inventory
+        where location_id = #{locationIds}
+        and delete_flag = 0
+    </select>
 
     <insert id="insertInventory" parameterType="Inventory" useGeneratedKeys="true" keyProperty="inventoryId">
         insert into awm_inventory

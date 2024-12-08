@@ -89,4 +89,13 @@ public class LocationsController extends BaseController {
     public AjaxResult remove(@PathVariable List<String> locationIds) {
         return toAjax(locationsService.deleteLocationsByLocationIds(locationIds));
     }
+
+    /**
+     * 查询当前库位的产品信息息
+     */
+    @Log(title = "查询当前库位的产品信息息", businessType = BusinessType.DELETE)
+    @GetMapping("/product/{locationIds}")
+    public AjaxResult product(@PathVariable String locationIds) {
+        return AjaxResult.success(locationsService.product(locationIds));
+    }
 }

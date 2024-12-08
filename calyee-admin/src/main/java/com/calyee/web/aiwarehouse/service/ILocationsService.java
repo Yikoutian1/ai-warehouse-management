@@ -2,6 +2,7 @@ package com.calyee.web.aiwarehouse.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.calyee.web.aiwarehouse.domain.entity.Locations;
+import com.calyee.web.aiwarehouse.domain.vo.ProductsVO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locationId 库位，记录仓库中每个具体存储位置的详细信息主键
      * @return 库位，记录仓库中每个具体存储位置的详细信息
      */
-    public Locations selectLocationsByLocationId(Long locationId);
+    Locations selectLocationsByLocationId(Long locationId);
 
     /**
      * 查询库位，记录仓库中每个具体存储位置的详细信息列表
@@ -26,7 +27,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locations 库位，记录仓库中每个具体存储位置的详细信息
      * @return 库位，记录仓库中每个具体存储位置的详细信息集合
      */
-    public List<Locations> selectLocationsList(Locations locations);
+    List<Locations> selectLocationsList(Locations locations);
 
     /**
      * 新增库位，记录仓库中每个具体存储位置的详细信息
@@ -34,7 +35,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locations 库位，记录仓库中每个具体存储位置的详细信息
      * @return 结果
      */
-    public int insertLocations(Locations locations);
+    int insertLocations(Locations locations);
 
     /**
      * 修改库位，记录仓库中每个具体存储位置的详细信息
@@ -42,7 +43,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locations 库位，记录仓库中每个具体存储位置的详细信息
      * @return 结果
      */
-    public int updateLocations(Locations locations);
+    int updateLocations(Locations locations);
 
     /**
      * 批量删除库位，记录仓库中每个具体存储位置的详细信息
@@ -50,7 +51,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locationIds 需要删除的库位，记录仓库中每个具体存储位置的详细信息主键集合
      * @return 结果
      */
-    public int deleteLocationsByLocationIds(List<String> locationIds);
+    int deleteLocationsByLocationIds(List<String> locationIds);
 
     /**
      * 删除库位，记录仓库中每个具体存储位置的详细信息信息
@@ -58,5 +59,7 @@ public interface ILocationsService extends IService<Locations> {
      * @param locationId 库位，记录仓库中每个具体存储位置的详细信息主键
      * @return 结果
      */
-    public int deleteLocationsByLocationId(Long locationId);
+    int deleteLocationsByLocationId(Long locationId);
+
+    ProductsVO product(String locationIds);
 }

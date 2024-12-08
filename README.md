@@ -123,8 +123,66 @@ CREATE TABLE `transactions` (
   FOREIGN KEY (`inventory_id`) REFERENCES `inventory` (`inventory_id`) COMMENT '库存记录外键约束'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='出入库记录表，记录每次库存变动';
 ```
+![](./img/2024-12-08_16-18-42.png)
+
+// Use DBML to define your database structure
+
+Table awm_products {
+    product_id   int  [primary key]
+    product_name varchar
+    description  text    
+    sku          varchar
+    category_id  int     
+    create_user  varchar
+    create_time  datetime
+    update_user  varchar
+    update_time  datetime
+    delete_flag  tinyint 
+}
+
+Table awm_inventory {
+    inventory_id integer [primary key]
+    location_id  int
+    product_id   int
+    quantity     int
+    create_user  varchar
+    create_time  datetime
+    update_user  varchar
+    update_time  datetime
+    delete_flag  tinyint
+}
+
+Table awm_locations {
+    location_id integer [primary key]
+    area        varchar
+    aisle       varchar
+    bay         varchar
+    level       varchar
+    position    varchar
+    create_user varchar
+    create_time datetime
+    update_user varchar
+    update_time datetime
+    delete_flag tinyint
+}
+
+Table awm_transactions {
+    transaction_id   int [primary key]
+    inventory_id     int     
+    transaction_type varchar
+    quantity         int     
+    transaction_time datetime
+    create_user      varchar
+    create_time      datetime
+    delete_flag      tinyint 
+}
+
+Ref: awm_products.product_id > awm_inventory.product_id // many-to-one
 
 
+Ref: "awm_transactions"."inventory_id" < "awm_inventory"."inventory_id"
+
+Ref: "awm_locations"."location_id" < "awm_inventory"."location_id"
 
 
 

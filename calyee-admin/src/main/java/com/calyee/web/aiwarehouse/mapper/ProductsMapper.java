@@ -20,7 +20,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param productId 产品，存储产品信息主键
      * @return 产品，存储产品信息
      */
-    public Products selectProductsByProductId(Long productId);
+    Products selectProductsByProductId(Long productId);
 
     /**
      * 查询产品，存储产品信息列表
@@ -28,7 +28,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param products 产品，存储产品信息
      * @return 产品，存储产品信息集合
      */
-    public List<Products> selectProductsList(Products products);
+    List<Products> selectProductsList(Products products);
 
     /**
      * 新增产品，存储产品信息
@@ -36,7 +36,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param products 产品，存储产品信息
      * @return 结果
      */
-    public int insertProducts(Products products);
+    int insertProducts(Products products);
 
     /**
      * 修改产品，存储产品信息
@@ -44,7 +44,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param products 产品，存储产品信息
      * @return 结果
      */
-    public int updateProducts(Products products);
+    int updateProducts(Products products);
 
     /**
      * 删除产品，存储产品信息
@@ -52,7 +52,7 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param productId 产品，存储产品信息主键
      * @return 结果
      */
-    public int deleteProductsByProductId(Long productId);
+    int deleteProductsByProductId(Long productId);
 
     /**
      * 批量删除产品，存储产品信息
@@ -60,5 +60,5 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @param productIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteProductsByProductIds(List<String> productIds);
+    int deleteProductsByProductIds(List<String> productIds);
 }

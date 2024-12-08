@@ -40,7 +40,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <br>
+      <br />
       <el-form-item label="库位的具体位置" prop="position">
         <el-input
           v-model="queryParams.position"
@@ -128,11 +128,7 @@
         prop="locationId"
       />
       <el-table-column label="库位所在的仓库区域" align="center" prop="area" />
-      <el-table-column
-        label="库位所在的巷道"
-        align="center"
-        prop="aisle"
-      />
+      <el-table-column label="库位所在的巷道" align="center" prop="aisle" />
       <el-table-column label="库位所在的排" align="center" prop="bay" />
       <el-table-column label="库位所在的层" align="center" prop="level" />
       <el-table-column label="库位的具体位置" align="center" prop="position" />
@@ -144,6 +140,12 @@
         class-name="small-padding fixed-width"
       >
         <template slot-scope="scope">
+          <el-button
+            type="text"
+            icon="el-icon-view"
+            @click="handleShow(scope.row)"
+            >当前库位下的产品</el-button
+          >
           <el-button
             size="mini"
             type="text"
@@ -173,7 +175,12 @@
     />
 
     <!-- 添加或修改库位，记录仓库中每个具体存储位置的详细信息对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
+    <el-dialog
+      :title="title"
+      :visible.sync="open"
+      width="1000px"
+      append-to-body
+    >
       <el-form ref="form" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="库位所在的仓库区域" prop="area">
           <el-input
@@ -181,10 +188,7 @@
             placeholder="请输入库位所在的仓库区域"
           />
         </el-form-item>
-        <el-form-item
-          label="库位所在的巷道，用于定位货架的通道"
-          prop="aisle"
-        >
+        <el-form-item label="库位所在的巷道，用于定位货架的通道" prop="aisle">
           <el-input
             v-model="form.aisle"
             placeholder="请输入库位所在的巷道，用于定位货架的通道"
@@ -208,11 +212,20 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+    <el-dialog
+      :title="title"
+      :visible.sync="productsOpen"
+      width="1000px"
+      append-to-body
+    >
+      <el-form ref="form" :model="locationsProducts" label-width="120px">
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listLocations, getLocations, delLocations, addLocations, updateLocations } from "@/api/system/locations"
+import { listLocations, getLocations, delLocations, addLocations, updateLocations, getLocationsProducts } from "@/api/system/locations"
 
 export default {
   name: "Locations",
@@ -251,6 +264,9 @@ export default {
       },
       // 表单参数
       form: {},
+      // 当前库位下的产品列表
+      locationsProducts:[],
+      productsOpen: false,
       // 表单校验
       rules: {
         area: [
@@ -342,6 +358,15 @@ export default {
         this.form = response.data
         this.open = true
         this.title = "修改库位，记录仓库中每个具体存储位置的详细信息"
+      })
+    },
+    /** 查看按钮操作 */
+    handleShow (row) {
+      this.locationsProducts = {}
+      const locationId = row.locationId || this.ids
+      getLocationsProducts(locationId).then(response => {
+        this.locationsProducts = response.data
+        this.productsOpen = true
       })
     },
     /** 提交按钮 */
